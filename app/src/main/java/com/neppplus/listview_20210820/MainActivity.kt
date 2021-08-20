@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
 //            토스트로 - 조경진 (34세) 이름 / 나이 출력.
 
 
-            Toast.makeText(this, clickedStudent.name, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "${clickedStudent.name} (${clickedStudent.getKoreanAgeByYear(2021)}세)", Toast.LENGTH_SHORT).show()
 
         }
 
