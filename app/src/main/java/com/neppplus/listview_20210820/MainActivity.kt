@@ -1,8 +1,11 @@
 package com.neppplus.listview_20210820
 
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.neppplus.listview_20210820.adapters.StudentAdapter
 import com.neppplus.listview_20210820.datas.StudentData
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,19 +47,36 @@ class MainActivity : AppCompatActivity() {
 
         studentListView.setOnItemLongClickListener { adapterView, view, position, l ->
 
-            val student = mStudentList[position]
+//            경고창을 띄워서 => 확인을 누른 경우에만 => 실제 학생 삭제.
+//            취소를 누르면 => 아무일도 안하도록.
+
+            val alert = AlertDialog.Builder(this)
+            alert.setTitle("학생 명단 삭제")
+            alert.setMessage("정말 해당 학생을 삭제하시겠습니까?")
+            alert.setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
+
+//                확인 버튼 누르면 실행할 코드.
+                val student = mStudentList[position]
 
 //            Toast.makeText(this, "${student.name} 길게 눌림", Toast.LENGTH_SHORT).show()
 
 //            클릭된 학생을 목록에서 제거.
-            mStudentList.remove(student)
+                mStudentList.remove(student)
 //            mStudentList.removeAt(position)
 
 //            리스트뷰 목록에 변경 -> 어댑터에게 새로고침 알림.
-            mAdapter.notifyDataSetChanged()
+                mAdapter.notifyDataSetChanged()
+
+            })
+            alert.setNegativeButton("취소", null)
+
+            alert.show()
+
+
 
             return@setOnItemLongClickListener  true
         }
 
     }
+
 }
